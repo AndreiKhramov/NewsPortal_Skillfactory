@@ -13,15 +13,10 @@ News
    {% if news %}
 
 <a href="{% url 'news_search' %}"> Search posts </a>
-<!--<form method="GET">-->
-<!--    {{ filter.form }}-->
-<!--    <input type="submit" value="Найти">-->
-<!--</form>-->
 
        <table>
            <tr>
                <td> Название </td>
-<!--               <td> Удалить </td>-->
                <td> Дата добавления </td>
                <td> Текст статьи </td>
            </tr>
@@ -30,7 +25,7 @@ News
            <tr>
                <td>{{ post.name|censor }}
                    <a href="{% url 'post_delete' post.id %}"><u> Delete </u></a>
-                   <a href="{% url 'post_edit' post.id %}"><u>Редактировать</u></a>
+                   <a href="{% url 'post_edit' post.id %}"><u> Edit </u></a>
                </td>
                <td>{{ post.add_time|date:'d M Y' }}</td>
                <td>{{ post.text|truncatewords:20|censor }}</td>
