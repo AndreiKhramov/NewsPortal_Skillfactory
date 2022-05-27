@@ -5,5 +5,6 @@ from .models import Post
 class PostFilter(FilterSet):
     class Meta:
         model = Post
-        fields = {'name': ['icontains'], 'add_time': ['gt']}
+        fields = {'post_auth': ['exact'], 'name': ['icontains'], 'add_time': ['gt']}
+
 
