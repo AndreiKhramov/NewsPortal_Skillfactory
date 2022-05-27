@@ -12,26 +12,21 @@ News
    <hr>
    {% if news %}
 
-<a href="{% url 'news_search' %}"> Search posts </a>
-<!--<form method="GET">-->
-<!--    {{ filter.form }}-->
-<!--    <input type="submit" value="Найти">-->
-<!--</form>-->
+<form method="GET">
+    {{ filter.form }}
+    <input type="submit" value="Найти">
+</form>
 
        <table>
            <tr>
                <td> Название </td>
-<!--               <td> Удалить </td>-->
                <td> Дата добавления </td>
                <td> Текст статьи </td>
            </tr>
 
            {% for post in filter.qs %}
            <tr>
-               <td>{{ post.name|censor }}
-                   <a href="{% url 'post_delete' post.id %}"><u> Delete </u></a>
-                   <a href="{% url 'post_edit' post.id %}"><u>Редактировать</u></a>
-               </td>
+               <td>{{ post.name|censor }}</td>
                <td>{{ post.add_time|date:'d M Y' }}</td>
                <td>{{ post.text|truncatewords:20|censor }}</td>
            </tr>
@@ -41,10 +36,6 @@ News
     {% else %}
        <h2> Новостей нет!</h2>
     {% endif %}
-<hr>
-<a href="{% url 'post_create' %}"> Add new post </a> <br>
-<hr>
-
 
 {% if is_paginated %}
 
