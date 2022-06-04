@@ -9,6 +9,12 @@ News
     <h1> All news  </h1>
     <h4> {{ time_now|date:'d M Y' }} </h4>
 <!--<h4> {{ 'Всего статей:' }} {{ news|length }} </h4>-->
+{% if is_in_common %}
+<h6> Страница авторизованного пользователя {{request.user.username}} </h6>
+{% else %}
+<h6> Страница неавторизованного пользователя </h6>
+{% endif %}
+
    <hr>
    {% if news %}
 
@@ -21,7 +27,7 @@ News
                <td> Текст статьи </td>
            </tr>
 
-           {% for post in filter.qs %}
+           {% for post in news %}
            <tr>
                <td>{{ post.name|censor }}
                    <a href="{% url 'post_delete' post.id %}"><u> Delete </u></a>
@@ -38,8 +44,12 @@ News
     {% endif %}
 <hr>
 <a href="{% url 'post_create' %}"> Add new post </a> <br>
-<hr>
 
+{% if is_not_authors %}
+<button> <a href="upgrade/"> Стать автором </a> </button>
+{% endif %}
+
+<hr>
 
 {% if is_paginated %}
 
