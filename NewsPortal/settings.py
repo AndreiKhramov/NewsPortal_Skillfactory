@@ -127,6 +127,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -151,3 +155,11 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_FORMS = {'signup': 'portal.forms.BasicSignupForm'}
+
+# SERVER_EMAIL = 'AndreySkillF@yandex.ru'
+#
+# EMAIL_HOST = 'smtp.yandex.ru'
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = 'AndreySkillF'
+# EMAIL_HOST_PASSWORD = 'qkoicdmgptsuqomb'
+# EMAIL_USE_SSL = True
