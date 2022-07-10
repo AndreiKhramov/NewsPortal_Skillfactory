@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'portal',
+    'portal.apps.PortalConfig',
     'django_filters',
 
     'django.contrib.sites',
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    'django_apscheduler'
 
 ]
 
@@ -145,6 +147,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+DEFAULT_FROM_EMAIL = 'AndreySkillF2@yandex.ru'
+
 SITE_ID = 1
 
 
@@ -156,10 +160,21 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_FORMS = {'signup': 'portal.forms.BasicSignupForm'}
 
-# SERVER_EMAIL = 'AndreySkillF@yandex.ru'
-#
-# EMAIL_HOST = 'smtp.yandex.ru'
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = 'AndreySkillF'
-# EMAIL_HOST_PASSWORD = 'qkoicdmgptsuqomb'
-# EMAIL_USE_SSL = True
+SERVER_EMAIL = 'AndreySkillF2@yandex.ru'
+
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'AndreySkillF2'
+EMAIL_HOST_PASSWORD = '1234qwer4321REWQ,'
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru'
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
+
+CELERY_BROKER_URL = 'redis://:hGfryNlO3sup1qWuIN6b6fzKWtdyr1Fh@redis-14127.c14.us-east-1-2.ec2.cloud.redislabs.com:14127/0'
+CELERY_RESULT_BACKEND = 'redis://:hGfryNlO3sup1qWuIN6b6fzKWtdyr1Fh@redis-14127.c14.us-east-1-2.ec2.cloud.redislabs.com:14127/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
