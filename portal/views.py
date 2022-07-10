@@ -1,6 +1,7 @@
 from datetime import datetime
+
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from .models import Post, Category
+from .models import Post, Category, User
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
@@ -8,12 +9,10 @@ from django.shortcuts import redirect, render, reverse
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 
-from .filters import PostFilter
+from django.core.mail import EmailMultiAlternatives
 
-# from django.views import View
-# from django.core.mail import send_mail
-#
-# from .models import Subscriber
+from .filters import PostFilter
+from django.template.loader import render_to_string
 
 
 class NewsList(ListView):
@@ -85,12 +84,12 @@ def upgrade_me(request):
 
 @login_required
 def subscribe(request, **kwargs):
-    category = Category.objects.get(pk=kwargs['pk'])
-    user = request.user
-    if user not in category.subscribers.all():
+    post = Post.objects.get(pk=kwargs['pk'])
+    for category in post.category.all():
+        user = User.objects.get(pk=request.user.id)
         category.subscribers.add(user)
 
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+    return redirect('/news')
 
 
 @login_required
@@ -100,5 +99,5 @@ def unsubscribe(request, **kwargs):
     if user in category.subscribers.all():
         category.subscribers.remove(user)
 
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+    return redirect('/news')
 
